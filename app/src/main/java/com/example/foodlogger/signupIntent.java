@@ -178,8 +178,6 @@ public class signupIntent extends AppCompatActivity {
                                 databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Protein").setValue(0);
                                 databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Dairy").setValue(0);
                                 alertDialog.dismiss();
-
-                                Log.d("TAG", "Account added into DB");
                                 Intent i = new Intent(getApplicationContext(), userAccount.class);
                                 startActivity(i);
                                 finish();
@@ -189,7 +187,6 @@ public class signupIntent extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Account Could not be made", Toast.LENGTH_SHORT).show();
-                    Log.d("TAG", "onComplete: Failed=" + task.getException().getMessage());
                     alertDialog.dismiss();
                 }
             }

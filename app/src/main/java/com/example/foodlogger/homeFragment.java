@@ -63,7 +63,6 @@ public class homeFragment extends Fragment {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Log.d("TAG", "List View Clicked");
                         Intent i = new Intent(getContext(), popUpWindow.class);
                         i.putExtra("name", foodList.get(position).getFoodName());
                         i.putExtra("type", foodList.get(position).getFoodType());

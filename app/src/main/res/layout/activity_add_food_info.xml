@@ -16,13 +16,14 @@
         android:ems="10"
         android:hint="Food Name"
         android:inputType="textPersonName"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_imageforFoodItem"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintVertical_bias="0.031" />
 
     <RadioGroup
         android:id="@+id/id_radioGroup"
@@ -43,7 +44,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:shadowColor="@android:color/white"
             android:text="Fruit"
+            android:textColor="@android:color/white"
+            android:textColorHighlight="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textColorLink="@android:color/white"
             android:textSize="18sp" />
 
         <RadioButton
@@ -52,6 +58,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Vegetable"
+            android:textColor="@android:color/white"
+            android:textColorHighlight="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textColorLink="@android:color/white"
             android:textSize="18sp" />
 
         <RadioButton
@@ -60,6 +70,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Grains"
+            android:textColor="@android:color/white"
+            android:textColorHighlight="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textColorLink="@android:color/white"
             android:textSize="18sp" />
 
         <RadioButton
@@ -68,6 +82,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Protein"
+            android:textColor="@android:color/white"
+            android:textColorHighlight="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textColorLink="@android:color/white"
             android:textSize="18sp" />
 
         <RadioButton
@@ -76,6 +94,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Dairy"
+            android:textColor="@android:color/white"
+            android:textColorHighlight="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textColorLink="@android:color/white"
             android:textSize="18sp" />
     </RadioGroup>
 
@@ -84,12 +106,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
+
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Date"
         android:inputType="date"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_radioGroup"
         app:layout_constraintVertical_bias="0.0" />
@@ -98,21 +124,20 @@
         android:id="@+id/id_AddFoodButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/circlebutton"
         android:text="Add"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_dateET"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/id_dateET" />
 
     <ImageView
         android:id="@+id/id_imageforFoodItem"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

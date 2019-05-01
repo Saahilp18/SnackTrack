@@ -37,7 +37,10 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import dmax.dialog.SpotsDialog;
 
@@ -63,8 +66,12 @@ public class addFoodInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food_info);
         setIds();
-        spotsAlertDialog = new SpotsDialog.Builder().setCancelable(false).setMessage("Adding Food...").setContext(this).build();
-
+        spotsAlertDialog = new SpotsDialog.Builder().setCancelable(false).setMessage("Retrieving Data...").setContext(this).build();
+        spotsAlertDialog.show();
+        SimpleDateFormat curFormater = new SimpleDateFormat("MM/dd/yyyy");
+        Date c = Calendar.getInstance().getTime();
+        String formattedDate = curFormater.format(c);
+        foodDateET.setText(formattedDate);
         imageURI = getIntent().getStringExtra("imageURI");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -89,6 +96,7 @@ public class addFoodInfo extends AppCompatActivity {
                             if (!fruitB && !veggieB && !grainsB && !proteinB && !dairyB) {
                                 Toast.makeText(addFoodInfo.this, "Please Select A Food Type", Toast.LENGTH_SHORT).show();
                             } else {
+                                spotsAlertDialog.setMessage("Adding Food...");
                                 spotsAlertDialog.show();
                                 foodList.add(new foodItem(foodNameET.getText().toString(), foodType, foodDateET.getText().toString(), imageURI));
                                 databaseReference.child(user.getUid()).child("Foods").child("Food Info List").setValue(foodList).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -201,9 +209,9 @@ public class addFoodInfo extends AppCompatActivity {
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Log.d("TAG", "Image URI: " + uri.toString());
                 imageURI = uri.toString();
                 Glide.with(getApplicationContext()).load(imageURI).into(foodImageView);
+                spotsAlertDialog.dismiss();
             }
         });
 

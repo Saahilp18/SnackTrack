@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                             String text = label.getText();
                             list.add(text);
                         }
-                        Log.d("TAG", "IMAGE STUFF: " + list.toString());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
