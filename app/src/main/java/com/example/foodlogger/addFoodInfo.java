@@ -124,7 +124,7 @@ public class addFoodInfo extends AppCompatActivity {
                                             dairyCount++;
                                             databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Dairy").setValue(dairyCount);
                                         }
-                                        
+
                                         Toast.makeText(addFoodInfo.this, "Food Added !", Toast.LENGTH_SHORT).show();
                                         Intent i = new Intent(getApplicationContext(), userAccount.class);
                                         startActivity(i);
