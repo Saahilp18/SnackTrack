@@ -1,5 +1,6 @@
 package com.example.foodlogger;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +26,8 @@ import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import dmax.dialog.SpotsDialog;
+
 public class signupIntent extends AppCompatActivity {
     EditText firstNameET, lastNameEt, emailET, passwordET, reenterPasswordET;
     Boolean firstNameB, lastNameB, emailB, passwordB, reenterPasswordB, passMatch;
@@ -32,14 +35,14 @@ public class signupIntent extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     DatabaseReference databaseReference;
-    ProgressDialog progressDialog;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_intent);
         setIds();
-        progressDialog = new ProgressDialog(this);
+        alertDialog = new SpotsDialog.Builder().setCancelable(false).setMessage("Making Account...").setContext(this).build();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firstNameB = false;
         lastNameB = false;
@@ -134,6 +137,7 @@ public class signupIntent extends AppCompatActivity {
                     if (passwordET.getText().toString().equals(reenterPasswordET.getText().toString())) {//if passwords match
                         if (passwordET.getText().toString().length() >= 6) {
                             finish();
+                            alertDialog.show();
                             createUser();
                         } else {
                             Toast.makeText(signupIntent.this, "Passwords must be greater than 6 characters", Toast.LENGTH_SHORT).show();
@@ -151,20 +155,17 @@ public class signupIntent extends AppCompatActivity {
     }
 
     public void createUser() {
-        progressDialog.setMessage("Registering...");
-        progressDialog.show();
         final String email = emailET.getText().toString().trim();
         final String password = passwordET.getText().toString().trim();
         final String firstName = firstNameET.getText().toString().trim();
         final String lastName = lastNameEt.getText().toString().trim();
-
+        alertDialog.dismiss();
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     user = auth.getCurrentUser();
                     final User newUser = new User(email, password);
-
                     databaseReference.child(user.getUid()).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -176,6 +177,8 @@ public class signupIntent extends AppCompatActivity {
                                 databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Grains").setValue(0);
                                 databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Protein").setValue(0);
                                 databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Dairy").setValue(0);
+                                alertDialog.dismiss();
+
                                 Log.d("TAG", "Account added into DB");
                                 Intent i = new Intent(getApplicationContext(), userAccount.class);
                                 startActivity(i);
@@ -185,9 +188,9 @@ public class signupIntent extends AppCompatActivity {
                     });
 
                 } else {
-                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Account Could not be made", Toast.LENGTH_SHORT).show();
                     Log.d("TAG", "onComplete: Failed=" + task.getException().getMessage());
+                    alertDialog.dismiss();
                 }
             }
         });

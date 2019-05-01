@@ -1,5 +1,6 @@
 package com.example.foodlogger;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -38,6 +39,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
+
 public class addFoodInfo extends AppCompatActivity {
     RadioGroup radioGroup;
     FirebaseStorage firebaseStorage;
@@ -52,7 +55,7 @@ public class addFoodInfo extends AppCompatActivity {
     EditText foodNameET, foodDateET;
     String foodType;
     ArrayList<foodItem> foodList;
-    ProgressDialog progressDialog;
+    AlertDialog spotsAlertDialog;
 
 
     @Override
@@ -60,8 +63,7 @@ public class addFoodInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food_info);
         setIds();
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Adding Food...");
+        spotsAlertDialog = new SpotsDialog.Builder().setCancelable(false).setMessage("Adding Food...").setContext(this).build();
 
         imageURI = getIntent().getStringExtra("imageURI");
         auth = FirebaseAuth.getInstance();
@@ -87,12 +89,12 @@ public class addFoodInfo extends AppCompatActivity {
                             if (!fruitB && !veggieB && !grainsB && !proteinB && !dairyB) {
                                 Toast.makeText(addFoodInfo.this, "Please Select A Food Type", Toast.LENGTH_SHORT).show();
                             } else {
-                                progressDialog.show();
+                                spotsAlertDialog.show();
                                 foodList.add(new foodItem(foodNameET.getText().toString(), foodType, foodDateET.getText().toString(), imageURI));
                                 databaseReference.child(user.getUid()).child("Foods").child("Food Info List").setValue(foodList).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        progressDialog.dismiss();
+                                        spotsAlertDialog.dismiss();
 
                                         long fruitCountlong = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Fruits").getValue();
                                         long vegeCountlong = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Vegetables").getValue();
