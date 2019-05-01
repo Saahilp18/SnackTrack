@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Food Logger</string>
+    <string name="title_activity_user_account">userAccount</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_test">test</string>
+</resources>
