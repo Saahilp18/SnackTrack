@@ -26,6 +26,10 @@ import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 import dmax.dialog.SpotsDialog;
 
 public class signupIntent extends AppCompatActivity {
@@ -179,6 +183,16 @@ public class signupIntent extends AppCompatActivity {
                                 databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Dairy").setValue(0);
                                 alertDialog.dismiss();
                                 Intent i = new Intent(getApplicationContext(), userAccount.class);
+
+                                try {
+                                    OutputStreamWriter writer = new OutputStreamWriter(openFileOutput("info.json", MODE_PRIVATE));
+                                    writer.write(password);
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
                                 startActivity(i);
                                 finish();
                             }
