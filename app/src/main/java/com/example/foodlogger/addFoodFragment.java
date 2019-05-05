@@ -1,11 +1,9 @@
 package com.example.foodlogger;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,25 +15,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -46,6 +38,7 @@ public class addFoodFragment extends Fragment {
     FirebaseUser user;
     Button takePictueButton, choosePictureButton;
     static final int SELECT_IMAGE = 1;
+    static final int TAKE_IMAGE = 2;
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
 
@@ -76,13 +69,11 @@ public class addFoodFragment extends Fragment {
         takePictueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), camerakitIntent.class);
+                startActivityForResult(intent, TAKE_IMAGE);
             }
         });
 
-
-        //foodList.add(new foodItem("Pizza", "Wheat", "4/14/02", "https://firebasestorage.googleapis.com/v0/b/foodapp-21a05.appspot.com/o/Food%20Images%2FfoodImage.jpg?alt=media&token=73b116c8-5e7a-4994-ab44-0e51c3eb0d15"));
-        //   databaseReference.child(user.getUid()).child("Foods").child("Food Info List").setValue(foodList);
         return fragmentView;
     }
 
@@ -97,7 +88,7 @@ public class addFoodFragment extends Fragment {
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         byte[] byteArray = baos.toByteArray();
-                        UploadTask uploadTask = storageReference.putBytes(byteArray);//lnk is changing
+                        UploadTask uploadTask = storageReference.putBytes(byteArray);
                         uploadTask.addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
@@ -115,6 +106,25 @@ public class addFoodFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
+            } else if (requestCode == TAKE_IMAGE) {
+                final Intent addInfoIntent = new Intent(getContext(), addFoodInfo.class);
+                Log.d("TAG", "WORKKK:" + data.getByteArrayExtra("byteArray").toString());
+
+                UploadTask uploadTask = storageReference.putBytes(data.getByteArrayExtra("byteArray"));
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Image upload failed", Toast.LENGTH_SHORT).show();
+                        Log.d("TAG", "IMAGE UPLOAD FAILED");
+                    }
+                });
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        addInfoIntent.putExtra("imageURI", uri.toString());
+                    }
+                });
+                startActivity(addInfoIntent);
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(getActivity(), "Canceled", Toast.LENGTH_SHORT).show();
             }

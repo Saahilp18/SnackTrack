@@ -26,6 +26,9 @@ import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -182,16 +185,23 @@ public class signupIntent extends AppCompatActivity {
                                 databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Protein").setValue(0);
                                 databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Dairy").setValue(0);
                                 alertDialog.dismiss();
-                                Intent i = new Intent(getApplicationContext(), userAccount.class);
 
                                 try {
                                     OutputStreamWriter writer = new OutputStreamWriter(openFileOutput("info.json", MODE_PRIVATE));
-                                    writer.write(password);
+                                    JSONObject jsonObject = new JSONObject();
+                                    jsonObject.put("password", password);
+                                    writer.write(jsonObject.toString());
                                 } catch (FileNotFoundException e) {
                                     e.printStackTrace();
                                 } catch (IOException e) {
                                     e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
+
+
+                                Intent i = new Intent(getApplicationContext(), userAccount.class);
+
 
                                 startActivity(i);
                                 finish();

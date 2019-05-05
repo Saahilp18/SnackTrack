@@ -1,19 +1,13 @@
 package com.example.foodlogger;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,7 +15,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,13 +23,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -73,6 +62,8 @@ public class addFoodInfo extends AppCompatActivity {
         String formattedDate = curFormater.format(c);
         foodDateET.setText(formattedDate);
         imageURI = getIntent().getStringExtra("imageURI");
+        Log.d("TAG", "FAKE:" + imageURI);
+
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -135,7 +126,7 @@ public class addFoodInfo extends AppCompatActivity {
                                             databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Dairy").setValue(dairyCount);
                                         }
 
-                                        Toast.makeText(addFoodInfo.this, "Food Added !", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Food Added !", Toast.LENGTH_SHORT).show();
                                         Intent i = new Intent(getApplicationContext(), userAccount.class);
                                         startActivity(i);
                                     }
