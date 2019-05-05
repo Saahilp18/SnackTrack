@@ -3,6 +3,7 @@ package com.example.foodlogger;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -38,11 +39,6 @@ import java.util.ArrayList;
 public class camerakitIntent extends AppCompatActivity {
     Button captureButton;
     CameraView cameraKitView;
-    FirebaseStorage firebaseStorage;
-    StorageReference storageReference;
-    DatabaseReference databaseReference;
-    FirebaseUser user;
-    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +46,6 @@ public class camerakitIntent extends AppCompatActivity {
         setContentView(R.layout.activity_camerakit_intent);
         cameraKitView = findViewById(R.id.id_cameraKitView);
         captureButton = findViewById(R.id.id_captureButton);
-        firebaseStorage = FirebaseStorage.getInstance();
-        storageReference = firebaseStorage.getReference().child("Food Images").child("foodImage.jpg");
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,12 +67,18 @@ public class camerakitIntent extends AppCompatActivity {
             @Override
             public void onImage(CameraKitImage cameraKitImage) {
                 Bitmap bitmap = cameraKitImage.getBitmap();
+                Matrix matrix = new Matrix();
+
+                matrix.postRotate(90);
+
+                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+                Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] byteArray = baos.toByteArray();
-                Log.d("TAG", "" + byteArray.toString());
                 Intent sendInfoBack = new Intent();
                 sendInfoBack.putExtra("byteArray", byteArray);
+                sendInfoBack.putExtra("GET", "GOT");
                 setResult(RESULT_OK, sendInfoBack);
                 finish();
             }

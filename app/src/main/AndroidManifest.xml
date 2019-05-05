@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".camerakitIntent"></activity>
+        <activity android:name=".testThing"></activity>
+        <activity android:name=".camerakitIntent" />
         <activity android:name=".addFoodInfo" />
         <activity
             android:name=".popUpWindow"

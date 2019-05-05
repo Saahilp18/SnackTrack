@@ -62,8 +62,6 @@ public class addFoodInfo extends AppCompatActivity {
         String formattedDate = curFormater.format(c);
         foodDateET.setText(formattedDate);
         imageURI = getIntent().getStringExtra("imageURI");
-        Log.d("TAG", "FAKE:" + imageURI);
-
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();

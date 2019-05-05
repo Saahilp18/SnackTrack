@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -80,13 +81,41 @@ public class addFoodFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == TAKE_IMAGE) {
+                final Intent addInfoIntent = new Intent(getContext(), addFoodInfo.class);
+                byte[] bytes = data.getByteArrayExtra("byteArray");
+                UploadTask uploadTask = storageReference.putBytes(bytes);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Image upload failed", Toast.LENGTH_SHORT).show();
+                        Log.d("TAG", "IMAGE UPLOAD FAILED");
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                addInfoIntent.putExtra("imageURI", uri.toString());
+                                startActivity(addInfoIntent);
+                            }
+                        });
+                    }
+                });
+
+            }
             if (requestCode == SELECT_IMAGE) {
                 if (data != null) {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                        Matrix matrix = new Matrix();
+                        matrix.postRotate(90);
+                        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+                        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
                         final Intent addInfoIntent = new Intent(getContext(), addFoodInfo.class);
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         byte[] byteArray = baos.toByteArray();
                         UploadTask uploadTask = storageReference.putBytes(byteArray);
                         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -94,39 +123,22 @@ public class addFoodFragment extends Fragment {
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(getContext(), "Image upload failed", Toast.LENGTH_SHORT).show();
                             }
-                        });
-                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
-                            public void onSuccess(Uri uri) {
-                                addInfoIntent.putExtra("imageURI", uri.toString());
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        addInfoIntent.putExtra("imageURI", uri.toString());
+                                        startActivity(addInfoIntent);
+                                    }
+                                });
                             }
                         });
-                        startActivity(addInfoIntent);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-            } else if (requestCode == TAKE_IMAGE) {
-                final Intent addInfoIntent = new Intent(getContext(), addFoodInfo.class);
-                Log.d("TAG", "WORKKK:" + data.getByteArrayExtra("byteArray").toString());
-
-                UploadTask uploadTask = storageReference.putBytes(data.getByteArrayExtra("byteArray"));
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Image upload failed", Toast.LENGTH_SHORT).show();
-                        Log.d("TAG", "IMAGE UPLOAD FAILED");
-                    }
-                });
-                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        addInfoIntent.putExtra("imageURI", uri.toString());
-                    }
-                });
-                startActivity(addInfoIntent);
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(getActivity(), "Canceled", Toast.LENGTH_SHORT).show();
             }
         }
     }
