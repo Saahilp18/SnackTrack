@@ -5,7 +5,7 @@
     android:id="@+id/id_homeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_red_light">
+    android:background="@drawable/background_gradient">
 
     <Button
         android:id="@+id/id_changePasswordButton"
@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="148dp"
         android:background="#F73131"
-        android:text="Change Password"        android:gravity="center"
+        android:gravity="center"
+        android:text="Change Password"
 
         android:textColor="@android:color/white"
         android:textSize="18sp"
@@ -26,9 +27,10 @@
         android:id="@+id/id_logoutButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="436dp"        android:gravity="center"
-
+        android:layout_marginTop="436dp"
         android:background="#F73131"
+
+        android:gravity="center"
         android:text="Log out"
         android:textColor="@android:color/white"
         android:textSize="18sp"
