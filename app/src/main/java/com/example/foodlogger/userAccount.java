@@ -33,15 +33,15 @@ public class userAccount extends AppCompatActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    usersNameTV.setText("User: " + firstName + " " + lastName);
+                    usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
                     selectedFragment = new homeFragment();
                     break;
                 case R.id.navigation_add:
-                    usersNameTV.setText("User: " + firstName + " " + lastName);
+                    usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
                     selectedFragment = new addFoodFragment();
                     break;
                 case R.id.navigation_settings:
-                    usersNameTV.setText("User: " + firstName + " " + lastName);
+                    usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
                     selectedFragment = new settingsFragment();
                     break;
             }

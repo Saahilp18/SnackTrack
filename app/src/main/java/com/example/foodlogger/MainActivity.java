@@ -118,4 +118,3 @@ public class MainActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.id_passwordLogin);
     }
 }
-

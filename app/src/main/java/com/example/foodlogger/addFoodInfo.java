@@ -87,7 +87,7 @@ public class addFoodInfo extends AppCompatActivity {
                             } else {
                                 spotsAlertDialog.setMessage("Adding Food...");
                                 spotsAlertDialog.show();
-                                foodList.add(new foodItem(foodNameET.getText().toString(), foodType, foodDateET.getText().toString(), imageURI));
+                                foodList.add(0, new foodItem(foodNameET.getText().toString(), foodType, foodDateET.getText().toString(), imageURI));
                                 databaseReference.child(user.getUid()).child("Foods").child("Food Info List").setValue(foodList).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
