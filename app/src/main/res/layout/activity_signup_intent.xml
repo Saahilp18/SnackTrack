@@ -17,8 +17,8 @@
         android:gravity="center"
         android:text="Create An Account"
         android:textColor="@android:color/white"
-        android:textSize="40sp"
 
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,6 @@
         android:gravity="center"
         android:hint="First Name"
         android:inputType="textPersonName"
-        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +58,6 @@
 
         android:inputType="textPersonName"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +77,6 @@
         android:hint="Email"
 
         android:inputType="textEmailAddress"
-        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +95,6 @@
         android:gravity="center"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColor="@android:color/white"
         android:textSize="20sp"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -139,7 +135,6 @@
         android:hint="Re-enter Password"
         android:inputType="textPassword"
 
-        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

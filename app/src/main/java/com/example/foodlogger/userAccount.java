@@ -44,6 +44,10 @@ public class userAccount extends AppCompatActivity {
                     usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
                     selectedFragment = new settingsFragment();
                     break;
+                case  R.id.navigation_graphs:
+                    usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
+                    selectedFragment = new graphs_fragment();
+                    break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.id_fragmentContainer, selectedFragment).commit();
             return true;

@@ -40,7 +40,6 @@
         android:inputType="textEmailAddress"
 
         android:text="saahilp18@gmail.com"
-        android:textColor="@android:color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +60,6 @@
         android:inputType="textPassword"
 
         android:text="Mosdude01"
-        android:textColor="@android:color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +94,6 @@
         android:clickable="true"
         android:gravity="center"
         android:text="Don't have an account? Click here."
-        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
