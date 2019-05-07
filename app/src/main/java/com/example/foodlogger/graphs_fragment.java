@@ -68,9 +68,22 @@ public class graphs_fragment extends Fragment {
                     pieData.add(new SliceValue(protein, Color.MAGENTA).setLabel("Protein: " + protein));
                 if (dairy > 0)
                     pieData.add(new SliceValue(dairy, Color.BLUE).setLabel("Dairy: " + dairy));
-                PieChartData pieChartData = new PieChartData(pieData);
+                final PieChartData pieChartData = new PieChartData(pieData);
                 pieChartData.setHasLabels(true);
-                pieChartView.setPieChartData(pieChartData);
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String name = dataSnapshot.child(user.getUid()).child("Name").child("First Name").getValue().toString();
+                        pieChartData.setHasCenterCircle(true).setCenterText1(name + "'s Food Log").setCenterText1FontSize(25).setCenterText1Color(Color.parseColor("#0097A7"));
+                        pieChartView.setPieChartData(pieChartData);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override
