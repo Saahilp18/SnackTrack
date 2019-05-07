@@ -11,13 +11,13 @@
         android:icon="@drawable/ic_add_black_24dp"
         android:title="Add Item" />
     <item
-        android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_settings_black_24dp"
-        android:title="Settings" />
-    <item
         android:id="@+id/navigation_graphs"
         android:icon="@drawable/ic_graphic_eq_black_24dp"
         android:title="Graphs" />
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="Settings" />
 
 
 </menu>

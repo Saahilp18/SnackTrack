@@ -16,7 +16,6 @@
         android:ems="10"
         android:hint="Food Name"
         android:inputType="textPersonName"
-        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,12 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:shadowColor="@android:color/white"
             android:text="Fruit"
-            android:textColor="@android:color/white"
-            android:textColorHighlight="@android:color/white"
-            android:textColorHint="@android:color/white"
-            android:textColorLink="@android:color/white"
             android:textSize="18sp" />
 
         <RadioButton
@@ -58,10 +52,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Vegetable"
-            android:textColor="@android:color/white"
-            android:textColorHighlight="@android:color/white"
-            android:textColorHint="@android:color/white"
-            android:textColorLink="@android:color/white"
             android:textSize="18sp" />
 
         <RadioButton
@@ -70,10 +60,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Grains"
-            android:textColor="@android:color/white"
-            android:textColorHighlight="@android:color/white"
-            android:textColorHint="@android:color/white"
-            android:textColorLink="@android:color/white"
             android:textSize="18sp" />
 
         <RadioButton
@@ -82,10 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Protein"
-            android:textColor="@android:color/white"
-            android:textColorHighlight="@android:color/white"
-            android:textColorHint="@android:color/white"
-            android:textColorLink="@android:color/white"
+
             android:textSize="18sp" />
 
         <RadioButton
@@ -94,10 +77,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Dairy"
-            android:textColor="@android:color/white"
-            android:textColorHighlight="@android:color/white"
-            android:textColorHint="@android:color/white"
-            android:textColorLink="@android:color/white"
             android:textSize="18sp" />
     </RadioGroup>
 
@@ -111,7 +90,6 @@
         android:ems="10"
         android:hint="Date"
         android:inputType="date"
-        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

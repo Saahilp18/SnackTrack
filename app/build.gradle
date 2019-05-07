@@ -36,6 +36,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.1.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

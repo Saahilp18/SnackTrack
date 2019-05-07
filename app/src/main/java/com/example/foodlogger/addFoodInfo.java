@@ -204,7 +204,6 @@ public class addFoodInfo extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void setIds() {

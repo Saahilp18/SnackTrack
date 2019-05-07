@@ -7,4 +7,16 @@
     android:background="@android:color/white"
     tools:context=".graphs_fragment">
 
+    <lecho.lib.hellocharts.view.PieChartView
+        android:id="@+id/id_pieChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.408" />
 </android.support.constraint.ConstraintLayout>
