@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.provider.MediaStore;
@@ -73,9 +74,8 @@ public class MainActivity extends AppCompatActivity {
                         // ...
                     }
                 });
-
-
         setIds();
+        signupTV.setPaintFlags(signupTV.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         auth = FirebaseAuth.getInstance();
         signupTV.setOnClickListener(new View.OnClickListener() {
             @Override

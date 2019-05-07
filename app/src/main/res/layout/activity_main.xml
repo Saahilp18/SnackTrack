@@ -93,7 +93,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:gravity="center"
-        android:text="Don't have an account? Click here."
+        android:text="Don't have an account? Click here"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
