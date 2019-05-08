@@ -69,8 +69,8 @@
 
     <Button
         android:id="@+id/id_loginButton"
-        android:layout_width="150dp"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/circlebutton"

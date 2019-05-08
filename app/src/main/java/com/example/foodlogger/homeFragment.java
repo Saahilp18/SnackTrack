@@ -3,6 +3,7 @@ package com.example.foodlogger;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,12 +36,15 @@ public class homeFragment extends Fragment {
     DatabaseReference databaseReference;
     FirebaseUser user;
     FirebaseAuth auth;
+    TextView youFoodsTV;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View fragmentView = inflater.inflate(R.layout.fragment_home, container, false);
         listView = fragmentView.findViewById(R.id.id_listView);
+        youFoodsTV = fragmentView.findViewById(R.id.id_yourFoodsTV);
+        youFoodsTV.setPaintFlags(youFoodsTV.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
