@@ -36,6 +36,11 @@ import com.google.firebase.ml.vision.label.FirebaseVisionCloudImageLabelerOption
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,6 +102,16 @@ public class MainActivity extends AppCompatActivity {
                                 if (task.isCanceled() || !task.isSuccessful()) {
                                     Toast.makeText(MainActivity.this, "Could not log in", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject();
+                                        jsonObject.put("email", emailET.getText().toString().trim());
+                                        jsonObject.put("password", passwordET.getText().toString().trim());
+                                        OutputStreamWriter writer = new OutputStreamWriter(openFileOutput("info.json", MODE_PRIVATE));
+                                        writer.write(jsonObject.toString());
+                                        writer.close();
+                                    } catch (Exception e) {
+
+                                    }
                                     finish();
                                     Intent i = new Intent(getApplicationContext(), userAccount.class);
                                     startActivity(i);
@@ -109,6 +124,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput("info.json")));
+            JSONObject jsonObject = new JSONObject(bufferedReader.readLine());
+            if (!jsonObject.isNull("password") || !jsonObject.isNull("email")) {
+                emailET.setText(jsonObject.get("email").toString());
+                passwordET.setText(jsonObject.get("password").toString());
+                loginButton.performClick();
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     public void setIds() {

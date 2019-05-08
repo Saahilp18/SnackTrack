@@ -187,22 +187,17 @@ public class signupIntent extends AppCompatActivity {
                                 alertDialog.dismiss();
 
                                 try {
-                                    OutputStreamWriter writer = new OutputStreamWriter(openFileOutput("info.json", MODE_PRIVATE));
                                     JSONObject jsonObject = new JSONObject();
-                                    jsonObject.put("password", password);
+                                    jsonObject.put("email", emailET.getText().toString().trim());
+                                    jsonObject.put("password", passwordET.getText().toString().trim());
+                                    OutputStreamWriter writer = new OutputStreamWriter(openFileOutput("info.json", MODE_PRIVATE));
                                     writer.write(jsonObject.toString());
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                    writer.close();
+                                } catch (Exception e) {
+
                                 }
 
-
                                 Intent i = new Intent(getApplicationContext(), userAccount.class);
-
-
                                 startActivity(i);
                                 finish();
                             }
