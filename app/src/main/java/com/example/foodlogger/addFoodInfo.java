@@ -2,8 +2,13 @@ package com.example.foodlogger;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +20,11 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.target.CustomViewTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,6 +33,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -30,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 
@@ -48,13 +63,15 @@ public class addFoodInfo extends AppCompatActivity {
     String foodType;
     ArrayList<foodItem> foodList;
     AlertDialog spotsAlertDialog;
-
+    FirebaseVisionImage firebaseVisionImage;
+    ArrayList<String> imageLabels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food_info);
         setIds();
+        imageLabels = new ArrayList<>();
         spotsAlertDialog = new SpotsDialog.Builder().setCancelable(false).setMessage("Retrieving Data...").setContext(this).build();
         spotsAlertDialog.show();
         SimpleDateFormat curFormater = new SimpleDateFormat("MM/dd/yyyy");
@@ -201,8 +218,43 @@ public class addFoodInfo extends AppCompatActivity {
                 imageURI = uri.toString();
                 Glide.with(getApplicationContext()).load(imageURI).into(foodImageView);
                 spotsAlertDialog.dismiss();
+
+                try {
+                    Glide.with(getApplicationContext()).asBitmap().load(uri).into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            Bitmap myBitmap = resource;
+                            firebaseVisionImage = FirebaseVisionImage.fromBitmap(myBitmap);
+                            FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageLabeler();
+                            labeler.processImage(firebaseVisionImage)
+                                    .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
+                                        @Override
+                                        public void onSuccess(List<FirebaseVisionImageLabel> labels) {
+                                            imageLabels = new ArrayList<>();
+                                            for (int i = 0; i < 5; i++) {
+                                                if (labels.size() > i) {
+                                                    imageLabels.add(labels.get(i).getText() + " " + labels.get(i).getConfidence());
+                                                }
+                                            }
+                                            Log.d("TAG", "Labels: " + imageLabels);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Task failed with an exception
+                                            // ...
+                                        }
+                                    });
+                        }
+                    });
+                } catch (Exception e) {
+
+                }
+
+
             }
-        });
+        }); //adjust confidence level of image labeler
 
     }
 
