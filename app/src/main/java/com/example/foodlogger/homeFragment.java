@@ -61,7 +61,16 @@ public class homeFragment extends Fragment {
                     String imageURI = dataSnapshot.child(user.getUid()).child("Foods").child("Food Info List").child("" + i).child("imageURI").getValue().toString();
                     foodList.add(new foodItem(foodName, foodType, foodDate, imageURI));
                 }
+
+                if (foodList.size() == 0) {
+                    youFoodsTV.setPaintFlags(0);
+                    youFoodsTV.setText("You Have No Food Currently Stored");
+                } else {
+                    youFoodsTV.setPaintFlags(youFoodsTV.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                    youFoodsTV.setText("Your Foods");
+                }
                 final CustomAdapter customAdapter = new CustomAdapter(fragmentView.getContext(), R.layout.foodlayout, foodList);
+                customAdapter.notifyDataSetChanged();
                 listView.setAdapter(customAdapter);
                 customAdapter.notifyDataSetChanged();
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,6 +81,7 @@ public class homeFragment extends Fragment {
                         i.putExtra("type", foodList.get(position).getFoodType());
                         i.putExtra("date", foodList.get(position).getFoodDate());
                         i.putExtra("imageURI", foodList.get(position).getImageURI());
+                        i.putExtra("pos", position);
                         startActivity(i);
                     }
                 });

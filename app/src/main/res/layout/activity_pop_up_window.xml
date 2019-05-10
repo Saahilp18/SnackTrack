@@ -25,24 +25,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-
         android:layout_marginBottom="8dp"
+
+        android:fontFamily="@font/architects_daughter"
         android:gravity="center"
         android:text="Food Name"
         android:textColor="@android:color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_popupImageFood"
-        app:layout_constraintVertical_bias="0.06" />
+        app:layout_constraintVertical_bias="0.372" />
 
     <TextView
         android:id="@+id/id_foodGroupPopupTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/architects_daughter"
         android:gravity="center"
         android:text="Food Group"
         android:textColor="@android:color/white"
@@ -60,7 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/architects_daughter"
         android:gravity="center"
+
         android:text="date"
         android:textColor="@android:color/white"
         android:textSize="25sp"
@@ -71,4 +75,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_foodGroupPopupTV"
         app:layout_constraintVertical_bias="0.102" />
+
+    <ImageView
+        android:id="@+id/id_deleteButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_delete_forever_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

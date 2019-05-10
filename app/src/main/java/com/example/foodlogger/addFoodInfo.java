@@ -1,6 +1,7 @@
 package com.example.foodlogger;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -233,9 +235,85 @@ public class addFoodInfo extends AppCompatActivity {
                                             imageLabels = new ArrayList<>();
                                             for (int i = 0; i < 5; i++) {
                                                 if (labels.size() > i) {
-                                                    imageLabels.add(labels.get(i).getText() + " " + labels.get(i).getConfidence());
+                                                    imageLabels.add(labels.get(i).getText());
                                                 }
                                             }
+                                            final Dialog dialog = new Dialog(addFoodInfo.this);
+                                            dialog.setContentView(R.layout.choose_food_dialog);
+                                            dialog.setTitle("Choose Food Name");
+                                            Button select1 = dialog.findViewById(R.id.id_selectButton1);
+                                            Button select2 = dialog.findViewById(R.id.id_selectButton2);
+                                            Button select3 = dialog.findViewById(R.id.id_selectButton3);
+                                            Button select4 = dialog.findViewById(R.id.id_selectButton4);
+                                            Button select5 = dialog.findViewById(R.id.id_selectButton5);
+                                            Button noneButton = dialog.findViewById(R.id.id_cancelButton);
+                                            final TextView selectText1 = dialog.findViewById(R.id.id_selectText1);
+                                            final TextView selectText2 = dialog.findViewById(R.id.id_selectText2);
+                                            final TextView selectText3 = dialog.findViewById(R.id.id_selectText3);
+                                            final TextView selectText4 = dialog.findViewById(R.id.id_selectText4);
+                                            final TextView selectText5 = dialog.findViewById(R.id.id_selectText5);
+                                            for (int i = 1; i <= 5; i++) {
+                                                if (i == 1) {
+                                                    selectText1.setText("" + imageLabels.get(i - 1));
+                                                }
+                                                if (i == 2) {
+                                                    selectText2.setText("" + imageLabels.get(i - 1));
+                                                }
+                                                if (i == 3) {
+                                                    selectText3.setText("" + imageLabels.get(i - 1));
+                                                }
+                                                if (i == 4) {
+                                                    selectText4.setText("" + imageLabels.get(i - 1));
+                                                }
+                                                if (i == 5) {
+                                                    selectText5.setText("" + imageLabels.get(i - 1));
+                                                }
+                                            }
+                                            select1.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    foodNameET.setText(imageLabels.get(0));
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            select2.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    foodNameET.setText(imageLabels.get(1));
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            select3.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    foodNameET.setText(imageLabels.get(2));
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            select4.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    foodNameET.setText(imageLabels.get(3));
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            select5.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    foodNameET.setText(imageLabels.get(4));
+                                                    dialog.dismiss();
+
+                                                }
+                                            });
+                                            noneButton.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+
+                                            dialog.show();
+
                                             Log.d("TAG", "Labels: " + imageLabels);
                                         }
                                     })
@@ -251,8 +329,6 @@ public class addFoodInfo extends AppCompatActivity {
                 } catch (Exception e) {
 
                 }
-
-
             }
         }); //adjust confidence level of image labeler
 
