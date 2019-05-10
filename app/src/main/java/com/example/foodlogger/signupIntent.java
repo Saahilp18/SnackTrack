@@ -199,7 +199,7 @@ public class signupIntent extends AppCompatActivity {
 
                                 Intent i = new Intent(getApplicationContext(), userAccount.class);
                                 startActivity(i);
-                                finish();
+                                //finish();
                             }
                         }
                     });

@@ -149,7 +149,6 @@ public class addFoodInfo extends AppCompatActivity {
                                     }
                                 });
                             }
-
                         }
                     }
                 });
@@ -241,6 +240,7 @@ public class addFoodInfo extends AppCompatActivity {
                                             final Dialog dialog = new Dialog(addFoodInfo.this);
                                             dialog.setContentView(R.layout.choose_food_dialog);
                                             dialog.setTitle("Choose Food Name");
+                                            dialog.setCanceledOnTouchOutside(false);
                                             Button select1 = dialog.findViewById(R.id.id_selectButton1);
                                             Button select2 = dialog.findViewById(R.id.id_selectButton2);
                                             Button select3 = dialog.findViewById(R.id.id_selectButton3);

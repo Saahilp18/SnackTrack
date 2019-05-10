@@ -47,11 +47,10 @@ public class graphs_fragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final List<SliceValue> pieData = new ArrayList<>();
-
                 fruitsL = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Fruits").getValue();
                 vegetablesL = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Vegetables").getValue();
                 grainsL = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Grains").getValue();
-                dairyL = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Grains").getValue();
+                dairyL = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Dairy").getValue();
                 proteinL = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Protein").getValue();
                 fruits = (int) fruitsL;
                 vegetables = (int) vegetablesL;
@@ -74,6 +73,9 @@ public class graphs_fragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String name = dataSnapshot.child(user.getUid()).child("Name").child("First Name").getValue().toString();
+                        if(pieData.size()==0)
+                            pieChartData.setHasCenterCircle(true).setCenterText1("Add food to see the graph").setCenterText1FontSize(25).setCenterText1Color(Color.parseColor("#0097A7"));
+                        else
                         pieChartData.setHasCenterCircle(true).setCenterText1(name + "'s Food Log").setCenterText1FontSize(25).setCenterText1Color(Color.parseColor("#0097A7"));
                         pieChartView.setPieChartData(pieChartData);
                     }

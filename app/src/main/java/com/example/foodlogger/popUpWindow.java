@@ -83,20 +83,74 @@ public class popUpWindow extends Activity {
                             foodList.add(new foodItem(foodName, foodType, foodDate, imageURI));
                         }
                         if (one) {
-                            if ((int) getIntent().getExtras().get("pos") < foodList.size())
+                            long fruitCountlong = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Fruits").getValue();
+                            long vegeCountlong = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Vegetables").getValue();
+                            long grainCountlong = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Grains").getValue();
+                            long proteinCountlong = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Protein").getValue();
+                            long dairyCountlong = (long) dataSnapshot.child(user.getUid()).child("Foods").child("Type Counts").child("Dairy").getValue();
+                            int fruitCount = (int) fruitCountlong;
+                            int vegeCount = (int) vegeCountlong;
+                            int grainCount = (int) grainCountlong;
+                            int proteinCount = (int) proteinCountlong;
+                            int dairyCount = (int) dairyCountlong;
+                            int pos = (int) getIntent().getExtras().get("pos");
+                            if (pos < foodList.size()) {
+                                switch (foodList.get(pos).getFoodType()) {
+                                    case "Fruit":
+                                        fruitCount--;
+                                        databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Fruits").setValue(fruitCount);
+                                        break;
+                                    case "Vegetable":
+                                        vegeCount--;
+                                        databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Vegetables").setValue(vegeCount);
+                                        break;
+                                    case "Grains":
+                                        grainCount--;
+                                        databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Grains").setValue(grainCount);
+                                        break;
+                                    case "Protein":
+                                        proteinCount--;
+                                        databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Protein").setValue(proteinCount);
+                                        break;
+                                    case "Dairy":
+                                        dairyCount--;
+                                        databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Dairy").setValue(dairyCount);
+                                        break;
+                                }
+                               /* if (foodList.get(pos).getFoodType().equals("Fruit")) {
+                                    fruitCount--;
+                                    databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Fruits").setValue(fruitCount);
+                                }
+                                if (foodList.get(pos).getFoodType().equals("Vegetable")) {
+                                    vegeCount--;
+                                    databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Vegetables").setValue(vegeCount);
+                                }
+                                if (foodList.get(pos).getFoodType().equals("Grains")) {
+                                    grainCount--;
+                                    databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Grains").setValue(grainCount);
+                                }
+                                if (foodList.get(pos).getFoodType().equals("Protein")) {
+                                    proteinCount--;
+                                    databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Protein").setValue(proteinCount);
+                                }
+                                if (foodList.get(pos).getFoodType().equals("Dairy")) {
+                                    dairyCount--;
+                                    databaseReference.child(user.getUid()).child("Foods").child("Type Counts").child("Dairy").setValue(dairyCount);
+                                }*/
                                 foodList.remove((int) getIntent().getExtras().get("pos"));
-                            one = false;
-                        }
-                        databaseReference.child(user.getUid()).child("Foods").child("Food Info List").setValue(foodList).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("TAG", "DELETED");
                                 one = false;
-                                finish();
+                                databaseReference.child(user.getUid()).child("Foods").child("Food Info List").setValue(foodList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("TAG", "DELETED");
+                                        one = false;
+                                        finish();
+                                    }
+                                });
                             }
-                        });
-                    }
+                        }
 
+                    }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
