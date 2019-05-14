@@ -1,5 +1,6 @@
 package com.example.foodlogger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -67,11 +68,12 @@ public class camerakitIntent extends AppCompatActivity {
                 Bitmap bitmap = cameraKitImage.getBitmap();
                 Matrix matrix = new Matrix();
 
-                matrix.postRotate(90);
+                //matrix.postRotate(90);
 
                 Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
-                imageView.setImageBitmap(cameraKitImage.getBitmap());
+                // imageView.setImageBitmap(cameraKitImage.getBitmap());
                 Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+                rotatedBitmap = scaleDownBitmap(rotatedBitmap, 100, getApplicationContext());
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] byteArray = baos.toByteArray();
@@ -98,5 +100,17 @@ public class camerakitIntent extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         cameraKitView.stop();
+    }
+
+    public Bitmap scaleDownBitmap(Bitmap photo, int newHeight, Context context) {
+
+        final float densityMultiplier = context.getResources().getDisplayMetrics().density;
+
+        int h = (int) (newHeight * densityMultiplier);
+        int w = (int) (h * photo.getWidth() / ((double) photo.getHeight()));
+
+        photo = Bitmap.createScaledBitmap(photo, w, h, true);
+
+        return photo;
     }
 }
