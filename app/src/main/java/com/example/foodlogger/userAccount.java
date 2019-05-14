@@ -31,25 +31,30 @@ public class userAccount extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
-                    selectedFragment = new homeFragment();
-                    break;
-                case R.id.navigation_add:
-                    usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
-                    selectedFragment = new addFoodFragment();
-                    break;
-                case R.id.navigation_settings:
-                    usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
-                    selectedFragment = new settingsFragment();
-                    break;
-                case  R.id.navigation_graphs:
-                    usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
-                    selectedFragment = new graphs_fragment();
-                    break;
+            try {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
+                        selectedFragment = new homeFragment();
+                        break;
+                    case R.id.navigation_add:
+                        usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
+                        selectedFragment = new addFoodFragment();
+                        break;
+                    case R.id.navigation_settings:
+                        usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
+                        selectedFragment = new settingsFragment();
+                        break;
+                    case R.id.navigation_graphs:
+                        usersNameTV.setText("User: " + firstName + " " + lastName.charAt(0));
+                        selectedFragment = new graphs_fragment();
+                        break;
+                }
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.id_fragmentContainer, selectedFragment).commit();
+            } catch (Exception e) {
+
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.id_fragmentContainer, selectedFragment).commit();
             return true;
         }
     };

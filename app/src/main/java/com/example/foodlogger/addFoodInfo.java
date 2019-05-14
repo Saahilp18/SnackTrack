@@ -69,9 +69,17 @@ public class addFoodInfo extends AppCompatActivity {
     ArrayList<String> imageLabels;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("TAG", "STARTED");
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food_info);
+        Log.d("TAG", "STARTED");
+
         setIds();
         imageLabels = new ArrayList<>();
         spotsAlertDialog = new SpotsDialog.Builder().setCancelable(false).setMessage("Retrieving Data...").setContext(this).build();

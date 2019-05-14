@@ -14,7 +14,7 @@
             android:id="@+id/id_selectText1"
             style="@style/ChooseFoodTextStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
 
             android:layout_weight="1"
             android:fontFamily="@font/architects_daughter"
@@ -33,7 +33,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         android:layout_weight="1" />
 
     <LinearLayout
@@ -47,7 +47,7 @@
             style="@style/ChooseFoodTextStyle"
             android:layout_width="0dp"
 
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="@font/architects_daughter"
 
@@ -66,7 +66,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         android:layout_weight="1" />
 
     <LinearLayout
@@ -79,7 +79,7 @@
             android:id="@+id/id_selectText3"
             style="@style/ChooseFoodTextStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="@font/architects_daughter"
             android:text="TextView" />
@@ -97,7 +97,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         android:layout_weight="1" />
 
     <LinearLayout
@@ -110,7 +110,7 @@
             android:id="@+id/id_selectText4"
             style="@style/ChooseFoodTextStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
 
             android:layout_weight="1"
             android:fontFamily="@font/architects_daughter"
@@ -129,7 +129,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         android:layout_weight="1" />
 
     <LinearLayout
@@ -142,7 +142,7 @@
             android:id="@+id/id_selectText5"
             style="@style/ChooseFoodTextStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
 
             android:layout_weight="1"
             android:fontFamily="@font/architects_daughter"
@@ -161,7 +161,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="10dp"
         android:layout_weight="1" />
 
     <Button

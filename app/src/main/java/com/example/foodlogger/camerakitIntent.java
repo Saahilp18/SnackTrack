@@ -12,8 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.wonderkiln.camerakit.CameraKit;
 import com.wonderkiln.camerakit.CameraKitError;
 import com.wonderkiln.camerakit.CameraKitEvent;
 import com.wonderkiln.camerakit.CameraKitEventListener;
@@ -29,6 +32,7 @@ import java.util.ArrayList;
 public class camerakitIntent extends AppCompatActivity {
     Button captureButton;
     CameraView cameraKitView;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,10 @@ public class camerakitIntent extends AppCompatActivity {
         setContentView(R.layout.activity_camerakit_intent);
         cameraKitView = findViewById(R.id.id_cameraKitView);
         captureButton = findViewById(R.id.id_captureButton);
+        imageView = findViewById(R.id.id_imageTest);
+        cameraKitView.setPermissions(CameraKit.Constants.PERMISSIONS_PICTURE);
+        cameraKitView.setFacing(CameraKit.Constants.FACING_BACK);
+        cameraKitView.setFlash(CameraKit.Constants.FLASH_AUTO);
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,18 +70,17 @@ public class camerakitIntent extends AppCompatActivity {
                 matrix.postRotate(90);
 
                 Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+                imageView.setImageBitmap(cameraKitImage.getBitmap());
                 Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] byteArray = baos.toByteArray();
                 Intent sendInfoBack = new Intent();
                 sendInfoBack.putExtra("byteArray", byteArray);
-                sendInfoBack.putExtra("GET", "GOT");
                 setResult(RESULT_OK, sendInfoBack);
                 finish();
             }
 
-            //GETS PIC FROM LAST TIME
             @Override
             public void onVideo(CameraKitVideo cameraKitVideo) {
 
