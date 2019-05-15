@@ -1,5 +1,6 @@
 package com.example.foodlogger;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,9 +31,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
+
 public class camerakitIntent extends AppCompatActivity {
     Button captureButton;
     CameraView cameraKitView;
+    AlertDialog spotsAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +48,12 @@ public class camerakitIntent extends AppCompatActivity {
         cameraKitView.setPermissions(CameraKit.Constants.PERMISSIONS_PICTURE);
         cameraKitView.setFacing(CameraKit.Constants.FACING_BACK);
         cameraKitView.setFlash(CameraKit.Constants.FLASH_AUTO);
+        spotsAlertDialog = new SpotsDialog.Builder().setCancelable(false).setMessage("Taking Picture...").setContext(this).build();
+
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                spotsAlertDialog.show();
                 cameraKitView.start();
                 cameraKitView.captureImage();
             }
@@ -79,6 +86,7 @@ public class camerakitIntent extends AppCompatActivity {
                 sendInfoBack.putExtra("byteArray", byteArray);
                 setResult(RESULT_OK, sendInfoBack);
                 finish();
+                spotsAlertDialog.dismiss();
             }
 
             @Override

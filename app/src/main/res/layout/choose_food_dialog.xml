@@ -18,7 +18,8 @@
 
             android:layout_weight="1"
             android:fontFamily="@font/architects_daughter"
-            android:text="TextView" />
+            android:text="TextView"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/id_selectButton1"
@@ -27,7 +28,8 @@
             android:layout_weight="1"
             android:background="@drawable/circlebutton"
             android:text="Select"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
@@ -46,12 +48,12 @@
             android:id="@+id/id_selectText2"
             style="@style/ChooseFoodTextStyle"
             android:layout_width="0dp"
-
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="@font/architects_daughter"
+            android:text="TextView"
 
-            android:text="TextView" />
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/id_selectButton2"
@@ -60,8 +62,9 @@
             android:layout_weight="1"
             android:background="@drawable/circlebutton"
             android:text="Select"
+            android:textColor="@android:color/white"
 
-            android:textColor="@android:color/white" />
+            android:visibility="invisible" />
     </LinearLayout>
 
     <Space
@@ -82,17 +85,18 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="@font/architects_daughter"
-            android:text="TextView" />
+            android:text="TextView"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/id_selectButton3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_weight="1"
             android:background="@drawable/circlebutton"
             android:text="Select"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <Space
@@ -111,20 +115,20 @@
             style="@style/ChooseFoodTextStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
             android:fontFamily="@font/architects_daughter"
-            android:text="TextView" />
+            android:text="TextView"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/id_selectButton4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_weight="1"
             android:background="@drawable/circlebutton"
             android:text="Select"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <Space
@@ -143,10 +147,10 @@
             style="@style/ChooseFoodTextStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
             android:fontFamily="@font/architects_daughter"
-            android:text="TextView" />
+            android:text="TextView"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/id_selectButton5"
@@ -155,8 +159,8 @@
             android:layout_weight="1"
             android:background="@drawable/circlebutton"
             android:text="Select"
-
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <Space
@@ -170,7 +174,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@drawable/circlebutton"
-
         android:text="None"
         android:textColor="@android:color/white" />
 

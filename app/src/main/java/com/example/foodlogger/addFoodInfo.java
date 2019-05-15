@@ -261,20 +261,37 @@ public class addFoodInfo extends AppCompatActivity {
                                             final TextView selectText4 = dialog.findViewById(R.id.id_selectText4);
                                             final TextView selectText5 = dialog.findViewById(R.id.id_selectText5);
                                             for (int i = 1; i <= 5; i++) {
-                                                if (i == 1) {
-                                                    selectText1.setText("" + imageLabels.get(i - 1));
-                                                }
-                                                if (i == 2) {
-                                                    selectText2.setText("" + imageLabels.get(i - 1));
-                                                }
-                                                if (i == 3) {
-                                                    selectText3.setText("" + imageLabels.get(i - 1));
-                                                }
-                                                if (i == 4) {
-                                                    selectText4.setText("" + imageLabels.get(i - 1));
-                                                }
-                                                if (i == 5) {
-                                                    selectText5.setText("" + imageLabels.get(i - 1));
+                                                if (i < imageLabels.size()) {
+                                                    if (i == 1) {
+                                                        selectText1.setText("" + imageLabels.get(i - 1));
+                                                        select1.setVisibility(View.VISIBLE);
+                                                        selectText1.setVisibility(View.VISIBLE);
+
+                                                    }
+                                                    if (i == 2) {
+                                                        selectText2.setText("" + imageLabels.get(i - 1));
+                                                        select2.setVisibility(View.VISIBLE);
+                                                        selectText2.setVisibility(View.VISIBLE);
+
+                                                    }
+                                                    if (i == 3) {
+                                                        selectText3.setText("" + imageLabels.get(i - 1));
+                                                        select3.setVisibility(View.VISIBLE);
+                                                        selectText3.setVisibility(View.VISIBLE);
+
+                                                    }
+                                                    if (i == 4) {
+                                                        selectText4.setText("" + imageLabels.get(i - 1));
+                                                        select4.setVisibility(View.VISIBLE);
+                                                        selectText4.setVisibility(View.VISIBLE);
+
+                                                    }
+                                                    if (i == 5) {
+                                                        selectText5.setText("" + imageLabels.get(i - 1));
+                                                        select5.setVisibility(View.VISIBLE);
+                                                        selectText5.setVisibility(View.VISIBLE);
+
+                                                    }
                                                 }
                                             }
                                             select1.setOnClickListener(new View.OnClickListener() {

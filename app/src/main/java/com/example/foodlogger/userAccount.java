@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +51,6 @@ public class userAccount extends AppCompatActivity {
                         selectedFragment = new graphs_fragment();
                         break;
                 }
-
                 getSupportFragmentManager().beginTransaction().replace(R.id.id_fragmentContainer, selectedFragment).commit();
             } catch (Exception e) {
 
@@ -67,6 +67,7 @@ public class userAccount extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         setIds();
+        usersNameTV.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference().child(user.getUid());
