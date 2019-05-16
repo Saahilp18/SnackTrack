@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,6 +44,9 @@ import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,7 +66,8 @@ public class addFoodInfo extends AppCompatActivity {
     String imageURI;
     Button addFoodButton;
     Boolean fruitB, veggieB, grainsB, proteinB, dairyB;
-    EditText foodNameET, foodDateET;
+    AutoCompleteTextView foodNameET;
+    EditText foodDateET;
     String foodType;
     ArrayList<foodItem> foodList;
     AlertDialog spotsAlertDialog;
@@ -84,6 +90,7 @@ public class addFoodInfo extends AppCompatActivity {
         imageLabels = new ArrayList<>();
         spotsAlertDialog = new SpotsDialog.Builder().setCancelable(false).setMessage("Retrieving Data...").setContext(this).build();
         spotsAlertDialog.show();
+
         SimpleDateFormat curFormater = new SimpleDateFormat("MM/dd/yyyy");
         Date c = Calendar.getInstance().getTime();
         String formattedDate = curFormater.format(c);
@@ -244,6 +251,20 @@ public class addFoodInfo extends AppCompatActivity {
                                                 if (labels.size() > i) {
                                                     imageLabels.add(labels.get(i).getText());
                                                 }
+                                                ArrayList<String> allfoods = new ArrayList<>();
+                                                InputStream inputStream = getResources().openRawResource(R.raw.foods);
+                                                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                                                String line = "";
+                                                try {
+                                                    while ((line = bufferedReader.readLine()) != null) {
+
+                                                    }
+                                                } catch (Exception e) {
+
+                                                }
+                                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.select_dialog_item, imageLabels);
+                                                foodNameET.setThreshold(1);
+                                                foodNameET.setAdapter(adapter);
                                             }
                                             final Dialog dialog = new Dialog(addFoodInfo.this);
                                             dialog.setContentView(R.layout.choose_food_dialog);

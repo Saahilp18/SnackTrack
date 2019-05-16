@@ -7,7 +7,7 @@
     android:background="@drawable/background_gradient"
     tools:context=".addFoodInfo">
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/id_foodNameET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
