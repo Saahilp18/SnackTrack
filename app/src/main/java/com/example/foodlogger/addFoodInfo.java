@@ -2,6 +2,7 @@ package com.example.foodlogger;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,6 +29,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,8 +47,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -241,17 +246,27 @@ public class addFoodInfo extends AppCompatActivity {
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                             Bitmap myBitmap = resource;
                             firebaseVisionImage = FirebaseVisionImage.fromBitmap(myBitmap);
-                            FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageLabeler();
+                            final FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageLabeler();
                             labeler.processImage(firebaseVisionImage)
                                     .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
                                         @Override
                                         public void onSuccess(List<FirebaseVisionImageLabel> labels) {
                                             imageLabels = new ArrayList<>();
-                                            for (int i = 0; i < 5; i++) {
+                                            for (int i = 0; i <= 5; i++) {
                                                 if (labels.size() > i) {
                                                     imageLabels.add(labels.get(i).getText());
+                                                    try {
+                                                        OutputStreamWriter writer = new OutputStreamWriter(getApplicationContext().openFileOutput("labeledfoods", Context.MODE_PRIVATE));
+                                                        writer.write(", " + labels.get(i).getText());
+                                                    } catch (FileNotFoundException e) {
+                                                        e.printStackTrace();
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
                                                 }
                                                 String[] tokens = {"Pretzels"};
+                                                String[] tokens1 = {"Pizza"};
+                                                ArrayList<String> listoffoods = new ArrayList<>();
                                                 InputStream inputStream = getResources().openRawResource(R.raw.foods);
                                                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                                                 String line = "";
@@ -259,10 +274,16 @@ public class addFoodInfo extends AppCompatActivity {
                                                     while ((line = bufferedReader.readLine()) != null) {
                                                         tokens = line.split(",");
                                                     }
+                                                    for (int j = 0; j < tokens.length; j++)
+                                                        listoffoods.add(tokens[j]);
+
+                                                    for (int j = 0; j < imageLabels.size(); j++)
+                                                        listoffoods.add(imageLabels.get(j));
+
                                                 } catch (Exception e) {
 
                                                 }
-                                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.select_dialog_item, tokens);
+                                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.select_dialog_item, listoffoods);
                                                 foodNameET.setThreshold(1);
                                                 foodNameET.setAdapter(adapter);
                                             }
