@@ -251,18 +251,18 @@ public class addFoodInfo extends AppCompatActivity {
                                                 if (labels.size() > i) {
                                                     imageLabels.add(labels.get(i).getText());
                                                 }
-                                                ArrayList<String> allfoods = new ArrayList<>();
+                                                String[] tokens = {"Pretzels"};
                                                 InputStream inputStream = getResources().openRawResource(R.raw.foods);
                                                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                                                 String line = "";
                                                 try {
                                                     while ((line = bufferedReader.readLine()) != null) {
-
+                                                        tokens = line.split(",");
                                                     }
                                                 } catch (Exception e) {
 
                                                 }
-                                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.select_dialog_item, imageLabels);
+                                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.select_dialog_item, tokens);
                                                 foodNameET.setThreshold(1);
                                                 foodNameET.setAdapter(adapter);
                                             }
