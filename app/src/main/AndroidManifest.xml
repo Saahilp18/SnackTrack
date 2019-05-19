@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -22,7 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".graphs_fragment"></activity>
+        <activity android:name=".changeEmail"></activity>
+        <activity android:name=".changeUsername" />
+        <activity android:name=".graphs_fragment" />
         <activity android:name=".camerakitIntent" />
         <activity android:name=".addFoodInfo" />
         <activity

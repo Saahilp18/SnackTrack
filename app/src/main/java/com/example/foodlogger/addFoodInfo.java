@@ -255,17 +255,8 @@ public class addFoodInfo extends AppCompatActivity {
                                             for (int i = 0; i <= 5; i++) {
                                                 if (labels.size() > i) {
                                                     imageLabels.add(labels.get(i).getText());
-                                                    try {
-                                                        OutputStreamWriter writer = new OutputStreamWriter(getApplicationContext().openFileOutput("labeledfoods", Context.MODE_PRIVATE));
-                                                        writer.write(", " + labels.get(i).getText());
-                                                    } catch (FileNotFoundException e) {
-                                                        e.printStackTrace();
-                                                    } catch (IOException e) {
-                                                        e.printStackTrace();
-                                                    }
                                                 }
                                                 String[] tokens = {"Pretzels"};
-                                                String[] tokens1 = {"Pizza"};
                                                 ArrayList<String> listoffoods = new ArrayList<>();
                                                 InputStream inputStream = getResources().openRawResource(R.raw.foods);
                                                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -274,15 +265,19 @@ public class addFoodInfo extends AppCompatActivity {
                                                     while ((line = bufferedReader.readLine()) != null) {
                                                         tokens = line.split(",");
                                                     }
-                                                    for (int j = 0; j < tokens.length; j++)
-                                                        listoffoods.add(tokens[j]);
-
+                                                    if (listoffoods.size() == 0) {
+                                                        for (int j = 0; j < tokens.length; j++)
+                                                            listoffoods.add(tokens[j]);
+                                                    }
                                                     for (int j = 0; j < imageLabels.size(); j++)
                                                         listoffoods.add(imageLabels.get(j));
 
                                                 } catch (Exception e) {
 
                                                 }
+                                                databaseReference.child(user.getUid()).child("Foods").child("Possible Foods").setValue(listoffoods);
+
+
                                                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.select_dialog_item, listoffoods);
                                                 foodNameET.setThreshold(1);
                                                 foodNameET.setAdapter(adapter);

@@ -11,10 +11,42 @@
         android:id="@+id/id_changePasswordButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="60dp"
         android:background="#F73131"
+
         android:gravity="center"
         android:text="Change Password"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_changeEmailButton" />
+
+    <Button
+        android:id="@+id/id_changeEmailButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:background="#F73131"
+        android:gravity="center"
+        android:text="Change Email"
+
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_changeUserButton" />
+
+    <Button
+        android:id="@+id/id_changeUserButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:background="#F73131"
+        android:gravity="center"
+        android:text="Change Name"
 
         android:textColor="@android:color/white"
         android:textSize="18sp"
@@ -27,9 +59,9 @@
         android:id="@+id/id_logoutButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="436dp"
-        android:background="#F73131"
 
+        android:layout_marginTop="60dp"
+        android:background="#F73131"
         android:gravity="center"
         android:text="Log out"
         android:textColor="@android:color/white"
@@ -37,6 +69,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/id_changePasswordButton" />
 
 </android.support.constraint.ConstraintLayout>

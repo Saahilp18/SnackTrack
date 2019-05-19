@@ -5,50 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".changePasswordIntent">
+    tools:context=".changeUsername">
 
     <EditText
-        android:id="@+id/id_newPass1"
+        android:id="@+id/id_oldEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-
+        android:layout_marginTop="192dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="New Password"
+        android:hint="New First Name"
+        android:inputType="textPersonName"
+        android:textSize="22sp"
+
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/id_newEmail1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="New Last Name"
+
         android:inputType="textPersonName"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/id_newPass2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="104dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Retype New Password"
-        android:inputType="textPersonName"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_newPass1" />
+        app:layout_constraintTop_toBottomOf="@+id/id_oldEmail" />
 
     <Button
-        android:id="@+id/id_changePasswordButton"
+        android:id="@+id/id_changeUserConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
 
+        android:layout_marginBottom="24dp"
         android:background="@drawable/circlebutton"
         android:gravity="center"
         android:text="Change"
         android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_newPass2" />
+        app:layout_constraintTop_toBottomOf="@+id/id_newEmail1"
+        app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>

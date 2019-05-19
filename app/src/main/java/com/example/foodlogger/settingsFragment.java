@@ -27,7 +27,7 @@ import java.io.OutputStreamWriter;
 import static android.content.Context.MODE_PRIVATE;
 
 public class settingsFragment extends Fragment {
-    Button changePasswordButton, logoutButton;
+    Button changePasswordButton, logoutButton, changeUserButton, changeEmailButton;
     DatabaseReference databaseRef;
     FirebaseAuth auth;
     FirebaseUser user;
@@ -38,6 +38,8 @@ public class settingsFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_settings, container, false);
         changePasswordButton = fragmentView.findViewById(R.id.id_changePasswordButton);
         logoutButton = fragmentView.findViewById(R.id.id_logoutButton);
+        changeUserButton = fragmentView.findViewById(R.id.id_changeUserButton);
+        changeEmailButton = fragmentView.findViewById(R.id.id_changeEmailButton);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
@@ -49,6 +51,21 @@ public class settingsFragment extends Fragment {
                 startActivity(changePasswordIntent);
             }
         });
+        changeEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changeEmailIntent = new Intent(getActivity(), changeEmail.class);
+                startActivity(changeEmailIntent);
+            }
+        });
+        changeUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changeUserIntent = new Intent(getActivity(), changeUsername.class);
+                startActivity(changeUserIntent);
+            }
+        });
+
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +98,7 @@ public class settingsFragment extends Fragment {
                 });
 
                 alert.setTitle("Are you sure you want to log out?");
-               // alert.setMessage("Here is my message");
+                // alert.setMessage("Here is my message");
 
                 AlertDialog alertDialog = alert.create();
                 alertDialog.show();

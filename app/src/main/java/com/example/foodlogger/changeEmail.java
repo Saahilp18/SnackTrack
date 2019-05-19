@@ -21,9 +21,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-public class changePasswordIntent extends AppCompatActivity {
-    EditText newPass1, newPass2;
-    Button changePassConfirmButton;
+public class changeEmail extends AppCompatActivity {
+    EditText newEmail1, newEmail2;
+    Button changeEmailConfirmButton;
     DatabaseReference databaseRef;
     FirebaseAuth auth;
     FirebaseUser user;
@@ -31,51 +31,48 @@ public class changePasswordIntent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password_intent);
-        newPass1 = findViewById(R.id.id_newPass1);
-        newPass2 = findViewById(R.id.id_newPass2);
-        changePassConfirmButton = findViewById(R.id.id_changePasswordButton);
+        setContentView(R.layout.activity_change_email);
+        newEmail1 = findViewById(R.id.id_newEmail1);
+        newEmail2 = findViewById(R.id.id_newEmail2);
+        changeEmailConfirmButton = findViewById(R.id.id_emailChangeConfirmButton);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         databaseRef = FirebaseDatabase.getInstance().getReference();
-        changePassConfirmButton.setOnClickListener(new View.OnClickListener() {
+        changeEmailConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (newPass1.getText().toString().trim().equals(newPass2.getText().toString().trim())) {
-                    if (newPass1.toString().trim().length() > 6) {
-                        databaseRef.child(user.getUid()).child("password").setValue(newPass1.getText().toString().trim());
-                        user.updatePassword(newPass1.getText().toString().trim()).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(changePasswordIntent.this, "Could not change password.", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                if (newEmail1.getText().toString().trim().length() > 0) {
+                    if (newEmail1.getText().toString().trim().equals(newEmail1.getText().toString().trim())) {
+                        databaseRef.child(user.getUid()).child("email").setValue(newEmail1.getText().toString().trim());
+                        user.updateEmail(newEmail1.getText().toString().trim()).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(changePasswordIntent.this, "Password Changed!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(changeEmail.this, "Email Changed!", Toast.LENGTH_SHORT).show();
                                 try {
                                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput("info.json")));
                                     JSONObject jsonObject = new JSONObject(bufferedReader.readLine());
-                                    jsonObject.remove("password");
-                                    jsonObject.put("password", newPass1.getText().toString().trim());
+                                    jsonObject.remove("email");
+                                    jsonObject.put("email", newEmail1.getText().toString().trim());
                                     OutputStreamWriter writer = new OutputStreamWriter(openFileOutput("info.json", MODE_PRIVATE));
                                     writer.write(jsonObject.toString());
                                     writer.close();
                                 } catch (Exception e) {
 
                                 }
-
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(changeEmail.this, "Could not change email.", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                         });
 
                     } else {
-                        Toast.makeText(changePasswordIntent.this, "Password must be greater than 6 characters.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(changeEmail.this, "Email do not match.", Toast.LENGTH_SHORT).show();
+                        newEmail2.setText("");
                     }
-                } else {
-                    Toast.makeText(changePasswordIntent.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
-                    newPass2.setText("");
                 }
             }
         });
